@@ -8,7 +8,7 @@ WORKDIR /tmp
 
 ADD ./install /
 RUN yum -y update 
-RUN yum -y sudo install unzip wget git
+RUN yum -y install sudo unzip wget git
 RUN adduser teamcity
 
 RUN yum install -y httpd php xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
