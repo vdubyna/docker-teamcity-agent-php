@@ -11,7 +11,7 @@ RUN yum -y update
 RUN yum -y install sudo unzip wget git
 RUN adduser teamcity
 
-RUN yum install -y httpd php xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+RUN yum install -y httpd php php-mbstring xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 
