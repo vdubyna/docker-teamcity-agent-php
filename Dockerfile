@@ -2,7 +2,7 @@
 
 FROM ariya/centos6-oracle-jre7
 
-MAINTAINER VOlodymyr Dubyna <vovikha@gmail.com>
+MAINTAINER Volodymyr Dubyna <vovikha@gmail.com>
 
 WORKDIR /tmp
 
@@ -23,5 +23,4 @@ RUN chmod +x /etc/init.d/xvfb
 
 ENV DISPLAY :99
 
-EXPOSE 9090
 CMD sudo -u teamcity -s -- sh -c "TEAMCITY_SERVER=$TEAMCITY_SERVER bash /setup-agent.sh run"
