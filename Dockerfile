@@ -7,7 +7,8 @@ MAINTAINER VOlodymyr Dubyna <vovikha@gmail.com>
 WORKDIR /tmp
 
 ADD ./install /
-RUN yum update && yum -y install sudo net-tools unzip wget vim-enhanced mc git nc
+RUN yum -y update 
+RUN yum -y install unzip wget git
 RUN adduser teamcity
 
 RUN yum install -y httpd php xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
@@ -17,8 +18,8 @@ RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN mkdir -p /usr/lib/selenium && wget -P /usr/lib/selenium/selenium-server-standalone.jar http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
 
 RUN mkdir -p /var/log/selenium/ && chmod 777 /var/log/selenium/
-RUN chmod +x /etc/init.d/selenium && systemctl start selenium
-RUN chmod +x /etc/init.d/xvfb && systemctl start xvfb
+RUN chmod +x /etc/init.d/selenium
+RUN chmod +x /etc/init.d/xvfb
 
 ENV DISPLAY :99
 
