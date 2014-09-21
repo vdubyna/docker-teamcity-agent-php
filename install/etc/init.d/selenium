@@ -6,7 +6,7 @@ case "${1:-''}" in
         then
             echo "Selenium is already running."
         else
-            DISPLAY=:7 java -jar /usr/local/lib/selenium/selenium-server-standalone-2.4.0.jar -port 4444 > /var/log/selenium/selenium-output.log 2> /var/log/selenium/selenium-error.log & echo $! > /tmp/selenium.pid
+            DISPLAY=:99 java -jar /usr/local/lib/selenium/selenium-server-standalone-2.4.0.jar -port 4444 > /var/log/selenium/selenium-output.log 2> /var/log/selenium/selenium-error.log & echo $! > /tmp/selenium.pid
             echo "Starting Selenium..."
 
             error=$?
