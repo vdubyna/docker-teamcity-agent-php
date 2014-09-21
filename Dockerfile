@@ -8,10 +8,7 @@ WORKDIR /tmp
 
 ADD ./install /
 RUN yum -y update 
-RUN yum -y install sudo unzip wget git
-RUN adduser teamcity
-
-RUN yum install -y httpd php php-mbstring xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+RUN yum install -y unzip wget git httpd php php-mbstring xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 
@@ -20,6 +17,5 @@ RUN mkdir -p /var/log/selenium/ && chmod a+w /var/log/selenium/
 RUN chmod +x /etc/init.d/selenium && chkconfig selenium on && service selenium start
 RUN chmod +x /etc/init.d/xvfb && chkconfig xvfb on && service xvfb start
 
-
 EXPOSE 9090
-CMD sudo -u teamcity -s -- sh -c "TEAMCITY_SERVER=$TEAMCITY_SERVER bash /setup-agent.sh run"
+CMD /setup-agent.sh run
