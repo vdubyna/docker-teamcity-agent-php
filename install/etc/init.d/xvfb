@@ -1,24 +1,54 @@
-XVFB=/usr/bin/Xvfb
-XVFBARGS=":99 -screen 0 1024x768x24 -fbdir /var/run -ac"
-PIDFILE=/var/run/xvfb.pid
+#!/bin/bash
+#
+# /etc/rc.d/init.d/xvfbd
+#
+# chkconfig: 345 95 28
+# description: Starts/Stops X Virtual Framebuffer server
+# processname: Xvfb
+#
+
+. /etc/init.d/functions
+
+[ "${NETWORKING}" = "no" ] && exit 0
+
+PROG="Xvfb[
+PROG_OPTIONS=](7)
+-ac -screen 0 1024x768x24"
+PROG_OUTPUT="/tmp/Xvfb.out"
+
 case "$1" in
-  start)
-    echo -n "Starting virtual X frame buffer: Xvfb"
-    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $XVFB -- $XVFBARGS
-    echo "."
-    ;;
-  stop)
-    echo -n "Stopping virtual X frame buffer: Xvfb"
-    start-stop-daemon --stop --quiet --pidfile $PIDFILE
-    echo "."
-    ;;
-  restart)
-    $0 stop
-    $0 start
-    ;;
-  *)
-        echo "Usage: /etc/init.d/xvfb {start|stop|restart}"
-        exit 1
+    start)
+        echo -n "Starting : X Virtual Frame Buffer "
+        $PROG $PROG_OPTIONS>>$PROG_OUTPUT 2>&1 &
+        disown -ar
+        /bin/usleep 500000
+        status Xvfb & >/dev/null && echo_success || echo_failure
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
+            /bin/touch /var/lock/subsys/Xvfb
+            /sbin/pidof -o  %PPID -x Xvfb > /var/run/Xvfb.pid
+        fi
+        echo
+   		;;
+    stop)
+        echo -n "Shutting down : X Virtual Frame Buffer"
+        killproc $PROG
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && /bin/rm -f /var/lock/subsys/Xvfb /var/run/Xvfb.pid
+        echo
+        ;;
+    restart|reload)
+    	$0 stop
+    	$0 start
+        RETVAL=$?
+      	;;
+    status)
+    	status Xvfb
+    	RETVAL=$?
+    	;;
+    *)
+     echo $"Usage: $0 (start|stop|restart|reload|status)"
+     exit 1
 esac
 
-exit 0
+exit $RETVAL
