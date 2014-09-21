@@ -26,4 +26,8 @@ if [ ! -d "$AGENT_DIR" ]; then
 else
     echo "Using agent at ${AGENT_DIR}."
 fi
+
+export DISPLAY=:99
+Xvfb :99 -screen 0 1024x768x24 &
+java -jar /usr/local/lib/selenium/selenium-server-standalone-2.43.1.jar
 $AGENT_DIR/bin/agent.sh run
