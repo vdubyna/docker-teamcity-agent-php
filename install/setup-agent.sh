@@ -19,6 +19,13 @@ if [ ! -d "$AGENT_DIR" ]; then
     unzip -q -d $AGENT_DIR buildAgent.zip
     rm buildAgent.zip
     chmod +x $AGENT_DIR/bin/agent.sh
+    
+    if [ -n "$AGENT_NAME" ]; then
+        echo "name=${AGENT_NAME}" > $AGENT_DIR/conf/buildAgent.properties
+    else 
+        echo "name=DockerAgentWithPhpXvfbSelenium" > $AGENT_DIR/conf/buildAgent.properties
+    fi
+    
     echo "serverUrl=${TEAMCITY_SERVER}" > $AGENT_DIR/conf/buildAgent.properties
     echo "workDir=../work" >> $AGENT_DIR/conf/buildAgent.properties
     echo "tempDir=../temp" >> $AGENT_DIR/conf/buildAgent.properties
