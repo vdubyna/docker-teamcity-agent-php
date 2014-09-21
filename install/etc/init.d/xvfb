@@ -1,13 +1,11 @@
 #!/bin/bash
 #
-# /etc/rc.d/init.d/xvfbd
+# /etc/rc.d/init.d/xvfb
 #
 # chkconfig: 345 95 28
 # description: Starts/Stops X Virtual Framebuffer server
 # processname: Xvfb
 #
-
-. /etc/init.d/functions
 
 [ "${NETWORKING}" = "no" ] && exit 0
 
