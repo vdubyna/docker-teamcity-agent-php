@@ -15,7 +15,7 @@ RUN yum install -y httpd php php-mbstring xvfb firefox xfonts-100dpi xfonts-75dp
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 
-RUN mkdir -p /usr/local/lib/selenium && wget -P /usr/local/lib/selenium http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
+RUN mkdir -p /usr/local/lib/selenium && wget -q -P /usr/local/lib/selenium http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
 RUN mkdir -p /var/log/selenium/ && chmod a+w /var/log/selenium/
 RUN chmod +x /etc/init.d/selenium && chkconfig selenium on && service selenium start
 RUN chmod +x /etc/init.d/xvfb && chkconfig xvfb on && service xvfb start
