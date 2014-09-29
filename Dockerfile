@@ -9,7 +9,7 @@ WORKDIR /tmp
 ADD ./install/ /
 RUN yum -y update 
 RUN chmod +x /setup-agent.sh
-RUN yum install -y unzip git httpd php php-mbstring xorg-x11-server-Xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+RUN yum install -y unzip git nodejs npm httpd php php-mbstring xorg-x11-server-Xvfb firefox xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN mkdir -p /usr/local/lib/selenium && wget -q -P /usr/local/lib/selenium http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
