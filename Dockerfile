@@ -11,7 +11,7 @@ ADD ./install/ /
 # Install EPEL
 
 
-RUN yum -y update && install wget -y && cd /tmp
+RUN yum -y update && install -y wget && cd /tmp
 # Import Key
 RUN wget --no-check-certificate https://fedoraproject.org/static/0608B895.txt -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
