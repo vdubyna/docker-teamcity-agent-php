@@ -9,9 +9,7 @@ WORKDIR /tmp
 ADD ./install/ /
 
 # Install EPEL
-
-
-RUN yum -y update && install -y wget && cd /tmp
+RUN yum -y update && yum install -y wget && cd /tmp
 # Import Key
 RUN wget --no-check-certificate https://fedoraproject.org/static/0608B895.txt -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
@@ -20,6 +18,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 RUN wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 RUN rpm -Uvh epel-release-6-8.noarch.rpm && rm epel-release-6-8.noarch.rpm
 
+RUN yum -y update
 RUN chmod +x /setup-agent.sh
 RUN yum install -y unzip git nodejs npm httpd php php-mbstring xorg-x11-server-Xvfb firefox
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
