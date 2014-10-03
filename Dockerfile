@@ -24,6 +24,7 @@ RUN yum install -y unzip git nodejs httpd php php-mbstring xorg-x11-server-Xvfb 
 
 ## Fix for npm https://registry.hub.docker.com/_/centos/
 RUN yum --enablerepo=centosplus install -y npm
+RUN npm install -g bower grunt
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
