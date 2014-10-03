@@ -9,7 +9,7 @@ WORKDIR /tmp
 ADD ./install/ /
 
 # Install EPEL
-RUN yum -y update && yum install -y wget && cd /tmp
+RUN yum -y update && yum install -y wget sudo && cd /tmp
 # Import Key
 RUN wget --no-check-certificate https://fedoraproject.org/static/0608B895.txt -O /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
@@ -30,5 +30,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
 RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN mkdir -p /usr/local/lib/selenium && wget -q -P /usr/local/lib/selenium http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
 
+RUN adduser teamcity
+
 EXPOSE 9090
-CMD /setup-agent.sh run
+CMD sudo -u teamcity -s -- sh -c "TEAMCITY_SERVER=$TEAMCITY_SERVER bash /setup-agent.sh run"
